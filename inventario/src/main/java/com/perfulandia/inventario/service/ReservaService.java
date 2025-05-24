@@ -1,7 +1,7 @@
 package com.perfulandia.inventario.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,62 +26,35 @@ public class ReservaService {
     public List<Reserva> reservas(){
         return reservaRepository.findAll();
     }
-    
-    // @Transactional
-    // public Reserva guardar(Reserva reserva){
-    //     int idProducto = reserva.getProducto().getIdProducto();
-    //     Producto producto = productoRepository.findById(idProducto).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-    //     if(producto.getCantidadDisponible() < reserva.getCantidadReserva()){
-    //         throw new RuntimeException("Stock insuficiente");
-    //     }
-    //     reserva.setProducto(producto);
-    //     producto.setCantidadDisponible(producto.getCantidadDisponible() - reserva.getCantidadReserva());
-    //     productoRepository.save(producto);
-    //     return reservaRepository.save(reserva);
-    // }
 
     @Transactional
-    public ReservaDTO guardar(Reserva reserva) {
-        // Obtener el idProducto del objeto Producto dentro de Reserva
-        int idProducto = reserva.getProducto().getIdProducto();
+    public ReservaDTO guardar(Reserva reserva, List<Integer> idProductos) {
+        // Validar y buscar los productos
+        List<Producto> productos = new ArrayList<>();
+        for (int idProducto : idProductos) {
+            Producto producto = productoRepository.findById(idProducto)
+                    .orElseThrow(() -> new RuntimeException("Producto con ID " + idProducto + " no encontrado"));
 
-        // Buscar el producto por id
-        Producto producto = productoRepository.findById(idProducto)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-
-        // Verificar si ya existe una Reserva para este Producto
-        Optional<Reserva> existingReserva = reservaRepository.findAll().stream()
-                .filter(r -> r.getProducto().getIdProducto() == idProducto)
-                .findFirst();
-
-        if (existingReserva.isPresent()) {
-            throw new RuntimeException("El producto con id " + idProducto + " ya tiene una reserva asociada");
+            // Validar stock para cada producto
+            if (producto.getCantidadDisponible() < reserva.getCantidadReserva()) {
+                throw new RuntimeException("Stock insuficiente para el producto con ID " + idProducto);
+            }
+            productos.add(producto);
         }
-
-        // Validar stock
-        if (producto.getCantidadDisponible() < reserva.getCantidadReserva()) {
-            throw new RuntimeException("Stock insuficiente");
+        // Asignar los productos a la reserva
+        reserva.setProductos(productos);
+        // Reducir el stock de cada producto
+        for (Producto producto : productos) {
+            producto.setCantidadDisponible(producto.getCantidadDisponible() - reserva.getCantidadReserva());
+            productoRepository.save(producto);
         }
-
-        // Asignar el producto encontrado a la reserva
-        reserva.setProducto(producto);
-
-        // Reducir stock
-        producto.setCantidadDisponible(producto.getCantidadDisponible() - reserva.getCantidadReserva());
-        productoRepository.save(producto);
-
-        // Guardar reserva
+        // Guardar la reserva
         Reserva savedReserva = reservaRepository.save(reserva);
-
         // Crear el DTO de respuesta
         ReservaDTO responseDTO = new ReservaDTO();
-        responseDTO.setIdReserva(savedReserva.getIdReserva());
-        responseDTO.setIdCliente(savedReserva.getIdCliente());
         responseDTO.setCantidadReserva(savedReserva.getCantidadReserva());
-        responseDTO.setIdProducto(idProducto);
 
-        // Determinar el estado del stock
-        int newStock = producto.getCantidadDisponible();
+        int newStock = productos.get(0).getCantidadDisponible();
         if (newStock == 0) {
             responseDTO.setStockStatus("Sin stock");
         } else if (newStock < 10) {

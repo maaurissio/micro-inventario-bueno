@@ -1,12 +1,16 @@
 package com.perfulandia.inventario.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,9 +31,12 @@ public class Reserva {
     @Column(nullable = true)
     private int cantidadReserva;
 
-    //Relacion con la tabla producto
-    @OneToOne
-    @JoinColumn(name = "idProducto", nullable = false)
-    private Producto producto;
 
+    //Relacion
+    @ManyToMany
+    @JoinTable(
+        name = "producto_reserva",
+        joinColumns = @JoinColumn(name = "idReserva"),
+        inverseJoinColumns = @JoinColumn(name = "idProducto"))
+    private List<Producto> productos = new ArrayList<>();
 }

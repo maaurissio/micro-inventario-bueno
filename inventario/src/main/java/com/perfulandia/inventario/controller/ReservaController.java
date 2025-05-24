@@ -1,6 +1,7 @@
 package com.perfulandia.inventario.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,21 +31,28 @@ public class ReservaController {
         return new ResponseEntity<>(reservas, HttpStatus.OK);
     }
 
-    // @PostMapping
-    // public ResponseEntity<Reserva> guardar(@RequestBody Reserva reserva){
-    //     try {
-    //         Reserva nuevaReserva = reservaService.guardar(reserva);
-    //         return new ResponseEntity<>(nuevaReserva, HttpStatus.CREATED);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    //     }
-    // }
     @PostMapping
-    public ResponseEntity<ReservaDTO> guardar(@RequestBody Reserva reserva) {
+    public ResponseEntity<ReservaDTO> guardar(@RequestBody Map<String, Object> reservaRequest) {
         try {
-            ReservaDTO responseDTO = reservaService.guardar(reserva);
+            // Extraer los campos del mapa
+            if (!reservaRequest.containsKey("idCliente") || !reservaRequest.containsKey("cantidadReserva") || !reservaRequest.containsKey("idProductos")) {
+                throw new RuntimeException("Los campos no pueden estar vacios");
+            }
+
+            int idCliente = (int) reservaRequest.get("idCliente");
+            int cantidadReserva = (int) reservaRequest.get("cantidadReserva");
+            @SuppressWarnings("unchecked")
+            List<Integer> idProductos = (List<Integer>) reservaRequest.get("idProductos");
+
+            // Crear la reserva
+            Reserva reserva = new Reserva();
+            reserva.setIdCliente(idCliente);
+            reserva.setCantidadReserva(cantidadReserva);
+
+            // Llamar al servicio
+            ReservaDTO responseDTO = reservaService.guardar(reserva, idProductos);
             return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

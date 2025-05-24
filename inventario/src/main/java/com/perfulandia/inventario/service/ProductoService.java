@@ -21,4 +21,13 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
+    public Producto actualizarStock(int idProducto, int cantidadASumar) {
+        Producto producto = productoRepository.findById(idProducto).orElseThrow(() -> new RuntimeException("Producto con ID " + idProducto + " no encontrado"));
+        int nuevoStock = producto.getCantidadDisponible() + cantidadASumar;
+        if (nuevoStock < 0) {
+            throw new RuntimeException("La cantidad disponible no puede ser negativa");
+        }
+        producto.setCantidadDisponible(nuevoStock);
+        return productoRepository.save(producto);
+    }
 }

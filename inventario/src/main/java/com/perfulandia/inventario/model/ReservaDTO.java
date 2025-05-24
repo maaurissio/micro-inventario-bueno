@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ReservaDTO {
-    private int idReserva;
-    private int idCliente;
+    //private int idReserva;
+    //private int idCliente;
     private int cantidadReserva;
-    private int idProducto;
+    //private int idProducto;
     private String stockStatus;
 }
