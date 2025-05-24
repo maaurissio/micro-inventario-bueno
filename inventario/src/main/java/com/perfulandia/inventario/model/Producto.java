@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,9 @@ public class Producto {
     @Column(length = 50, nullable = true)
     private String nombre;
 
+    @Column(nullable = true)
+    private int cantidadDisponible;
+
     @Column(length = 50, nullable = true)
     private String aroma;
 
@@ -33,7 +37,13 @@ public class Producto {
     @Column(length = 50, nullable = true)
     private String marca;
 
+    @Column(nullable = true)
     private double ml;
+
+    @Column(nullable = true)
     private double precio;
 
+    //Relacion con la tabla reserva
+    @OneToOne(mappedBy = "producto")
+    private Reserva reserva;
 }

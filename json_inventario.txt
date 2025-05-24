@@ -1,0 +1,9 @@
+{
+    "nombre": "Perfume SPIDER MAN",
+    "aroma": "A CULO",
+    "cantidadDisponible": 50,
+    "descripcion": "CON ESTE ATRAES MINAS 100%",
+    "marca": "Toyota",
+    "ml": 100.0,
+    "precio": 39.99
+}
