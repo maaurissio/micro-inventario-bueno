@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.perfulandia.inventario.model.Reserva;
+import com.perfulandia.inventario.model.ReservaDTO;
 import com.perfulandia.inventario.service.ReservaService;
 
 @RestController
@@ -29,11 +30,20 @@ public class ReservaController {
         return new ResponseEntity<>(reservas, HttpStatus.OK);
     }
 
+    // @PostMapping
+    // public ResponseEntity<Reserva> guardar(@RequestBody Reserva reserva){
+    //     try {
+    //         Reserva nuevaReserva = reservaService.guardar(reserva);
+    //         return new ResponseEntity<>(nuevaReserva, HttpStatus.CREATED);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    //     }
+    // }
     @PostMapping
-    public ResponseEntity<Reserva> guardar(@RequestBody Reserva reserva){
+    public ResponseEntity<ReservaDTO> guardar(@RequestBody Reserva reserva) {
         try {
-            Reserva nuevaReserva = reservaService.guardar(reserva);
-            return new ResponseEntity<>(nuevaReserva, HttpStatus.CREATED);
+            ReservaDTO responseDTO = reservaService.guardar(reserva);
+            return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

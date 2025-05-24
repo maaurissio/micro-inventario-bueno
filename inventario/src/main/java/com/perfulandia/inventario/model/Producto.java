@@ -1,5 +1,7 @@
 package com.perfulandia.inventario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,5 +47,6 @@ public class Producto {
 
     //Relacion con la tabla reserva
     @OneToOne(mappedBy = "producto")
+    @JsonIgnore
     private Reserva reserva;
 }
