@@ -16,13 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
-
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProducto;
-
+    
     @Column(length = 50, nullable = true)
     private String nombre;
 

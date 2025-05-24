@@ -1,0 +1,29 @@
+package com.perfulandia.inventario.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.perfulandia.inventario.model.Reserva;
+import com.perfulandia.inventario.service.ReservaService;
+
+@RestController
+@RequestMapping("/api/reservas")
+public class ReservaController {
+    @Autowired
+    private ReservaService reservaService;
+
+    @GetMapping
+    public ResponseEntity<List<Reserva>> getReservas(){
+        List<Reserva> reservas = reservaService.reservas();
+        if(reservas.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(reservas, HttpStatus.OK);
+    }
+}
