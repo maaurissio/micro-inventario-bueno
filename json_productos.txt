@@ -1,0 +1,99 @@
+{
+    "nombre": "Eau de Lune",
+    "cantidadDisponible": 25,
+    "aroma": "Floral",
+    "descripcion": "Una fragancia suave con notas de jazmín y almizcle.",
+    "marca": "Lumière",
+    "ml": 50.0,
+    "precio": 45.99
+  }
+-----------
+{
+    "nombre": "Ocean Breeze",
+    "cantidadDisponible": 15,
+    "aroma": "Fresco",
+    "descripcion": "Inspirado en la brisa marina, con toques de menta y cítricos.",
+    "marca": "AquaScents",
+    "ml": 100.0,
+    "precio": 59.50
+  }
+--------
+{
+    "nombre": "Mystic Oud",
+    "cantidadDisponible": 10,
+    "aroma": "Amaderado",
+    "descripcion": "Fragancia intensa con oud, incienso y ámbar.",
+    "marca": "Arabian Gold",
+    "ml": 75.0,
+    "precio": 79.99
+  }
+----------------
+{
+    "nombre": "Sweet Rose",
+    "cantidadDisponible": 30,
+    "aroma": "Rosa",
+    "descripcion": "Romántica y delicada, con esencia de rosas de Damasco.",
+    "marca": "RoseGarden",
+    "ml": 60.0,
+    "precio": 39.90
+  }
+----------------
+{
+    "nombre": "Citrus Blast",
+    "cantidadDisponible": 50,
+    "aroma": "Cítrico",
+    "descripcion": "Energizante mezcla de naranja, limón y toronja.",
+    "marca": "Zest",
+    "ml": 100.0,
+    "precio": 29.99
+  }
+----------------------
+{
+    "nombre": "Night Velvet",
+    "cantidadDisponible": 12,
+    "aroma": "Oriental",
+    "descripcion": "Perfume de noche con notas de vainilla, canela y almendra.",
+    "marca": "Noir Chic",
+    "ml": 80.0,
+    "precio": 72.00
+  }
+--------------------
+{
+    "nombre": "Lavender Fields",
+    "cantidadDisponible": 20,
+    "aroma": "Lavanda",
+    "descripcion": "Aromas relajantes de lavanda provenzal con toque herbal.",
+    "marca": "Herbal Essence",
+    "ml": 50.0,
+    "precio": 35.00
+  }
+----------------------
+{
+    "nombre": "Amber Glow",
+    "cantidadDisponible": 18,
+    "aroma": "Ámbar",
+    "descripcion": "Cálida y envolvente, ideal para climas fríos.",
+    "marca": "Golden Essence",
+    "ml": 90.0,
+    "precio": 67.50
+  }
+---------------------
+{
+    "nombre": "Green Spirit",
+    "cantidadDisponible": 40,
+    "aroma": "Herbal",
+    "descripcion": "Frescura natural con notas de eucalipto y albahaca.",
+    "marca": "Nature Fragrances",
+    "ml": 100.0,
+    "precio": 33.75
+  }
+-------------------
+{
+    "nombre": "Chic Blossom",
+    "cantidadDisponible": 22,
+    "aroma": "Floral Frutal",
+    "descripcion": "Joven y vibrante con mezcla de peonía, mango y durazno.",
+    "marca": "Modern Bloom",
+    "ml": 75.0,
+    "precio": 49.90
+  }
