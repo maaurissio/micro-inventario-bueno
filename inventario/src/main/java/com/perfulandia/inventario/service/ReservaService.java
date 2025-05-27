@@ -54,13 +54,11 @@ public class ReservaService {
         ReservaDTO responseDTO = new ReservaDTO();
         responseDTO.setCantidadReserva(savedReserva.getCantidadReserva());
 
-        int newStock = productos.get(0).getCantidadDisponible();
-        if (newStock == 0) {
+        int Stock = productos.get(0).getCantidadDisponible();
+        if (Stock == 0) {
             responseDTO.setStockStatus("Sin stock");
-        } else if (newStock < 10) {
+        } else if (Stock < 10) {
             responseDTO.setStockStatus("Bajo stock");
-        } else {
-            responseDTO.setStockStatus("Stock suficiente");
         }
 
         return responseDTO;
