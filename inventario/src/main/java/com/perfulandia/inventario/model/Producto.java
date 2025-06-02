@@ -48,6 +48,9 @@ public class Producto {
     @Column(nullable = true)
     private double precio;
 
+    @Column(nullable = false)
+    private boolean isVigente = true;
+
     //Relacion
     @ManyToMany(mappedBy = "productos")
     @JsonIgnore

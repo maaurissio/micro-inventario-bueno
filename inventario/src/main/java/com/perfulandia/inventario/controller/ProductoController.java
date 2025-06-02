@@ -32,6 +32,15 @@ public class ProductoController {
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }
 
+    @GetMapping("/todos")
+    public ResponseEntity<List<Producto>> getAllProductos(){
+        List<Producto> productos = productoService.allProductos();
+        if(productos.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productos, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Producto> guardar(@RequestBody Producto producto){
         Producto nuevoProducto = productoService.guardar(producto);
@@ -51,4 +60,23 @@ public class ProductoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/{id}/vigente")
+    public ResponseEntity<?> actualizarVigencia(@PathVariable("id") int id, @RequestBody Map<String, Boolean> vigenteRequest) {
+        try {
+            if (!vigenteRequest.containsKey("isVigente") || vigenteRequest.get("isVigente") == null) {
+                return ResponseEntity.badRequest().body("El campo 'isVigente' es requerido");
+            }
+            boolean isVigente = vigenteRequest.get("isVigente");
+            Producto producto = productoService.actualizarStock(id, 0);
+            producto.setVigente(isVigente);
+            Producto productoActualizado = productoService.guardar(producto);
+            return new ResponseEntity<>(productoActualizado, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+
 }

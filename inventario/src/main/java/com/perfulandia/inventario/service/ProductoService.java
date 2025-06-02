@@ -13,8 +13,12 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    public List<Producto> productos(){
+    public List<Producto> allProductos(){
         return productoRepository.findAll();
+    }
+
+    public List<Producto> productos(){
+        return productoRepository.findByIsVigenteTrue();
     }
 
     public Producto guardar(Producto producto){
