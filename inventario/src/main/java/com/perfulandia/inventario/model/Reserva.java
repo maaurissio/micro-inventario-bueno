@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idReserva;
+    private Long idReserva;
     @Column(nullable = true)
     private int idCliente;
     @Column(nullable = true)
